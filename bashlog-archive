@@ -1,23 +1,30 @@
+#!/bin/bash
 # Sidenote: Running this program in a Debian docker container.
 
-create_command_tool() {
-  # Creating the command line tool aspect.
-  # =======================================
+# Function to ensure current directory is in $PATH
+ensure_pwd_in_path() {
   # Gave the file execute permissions: chmod a+x bashlog-archive
-  # Adding the current directory to $PATH.
+  # Adds the current directory to $PATH if not already included
   if [[ ":$PATH:" != *":$(pwd):"* ]]; then
     export PATH="$PATH:$(pwd)"
   fi
-  # Now the script can be ran like a command tool
 }
 
 
-create_command_tool()
+ensure_pwd_in_path
 
+# ==========================
 # Argument validation
+# ==========================
 LOG_DIR="$1"
 
 if [ -z "$LOG_DIR" ]; then
   echo "Usage: bashlog-archive <log-directory>"
+  exit 1
+fi
+
+# Validate the directory exists
+if [ ! -d "$LOG_DIR" ]; then
+  echo "Error: '$LOG_DIR' is not a valid directory."
   exit 1
 fi
