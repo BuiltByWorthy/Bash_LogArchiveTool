@@ -1,1 +1,23 @@
-echo "Testing....."
+# Sidenote: Running this program in a Debian docker container.
+
+create_command_tool() {
+  # Creating the command line tool aspect.
+  # =======================================
+  # Gave the file execute permissions: chmod a+x bashlog-archive
+  # Adding the current directory to $PATH.
+  if [[ ":$PATH:" != *":$(pwd):"* ]]; then
+    export PATH="$PATH:$(pwd)"
+  fi
+  # Now the script can be ran like a command tool
+}
+
+
+create_command_tool()
+
+# Argument validation
+LOG_DIR="$1"
+
+if [ -z "$LOG_DIR" ]; then
+  echo "Usage: bashlog-archive <log-directory>"
+  exit 1
+fi
